@@ -10,13 +10,14 @@ public class GameManager:MonoBehaviour
     Boids[] flock=new Boids[100];
     public float alignForce, cohesionForce, separationForce, perceptionRadius;
     float maxSpeed;
-    public bool Cohesion, Alignment, Separation, WrapEdges=true;
+    public bool Cohesion=true, Alignment=true, Separation=true, WrapEdges=true;
     int i = 1;
     // Start is called before the first frame update
     void Start()
     {
         perceptionRadius = 10;
-        alignForce= cohesionForce= separationForce=0.02f;//align 0.01
+        Cohesion =  Alignment =  Separation =  WrapEdges = true;
+        alignForce = cohesionForce= separationForce=0.02f;//align 0.01
         
         WrapEdges = true;
         maxSpeed = 1f;
@@ -32,15 +33,17 @@ public class GameManager:MonoBehaviour
     }
     private void Update()
     {
-        {//for random forces every 5 seconds
+        {//for random forces every 30 seconds
             i++;
-            if(i%300==0)
+            Debug.Log(i % 500);
+            if(i%500==0)
             {
                 alignForce = Random.Range(0.0f, 0.5f);
                 separationForce = Random.Range(0.0f, 0.5f);
                 cohesionForce = Random.Range(0.01f, 0.1f);
             }
-
+            if (i > 500)
+                i = 0;
         }
         
 
